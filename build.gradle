@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'antlr'
 }
 
 group = 'com.compiler.flask'
@@ -9,8 +10,26 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    antlr 'org.antlr:antlr4:4.13.1'
+    implementation 'org.antlr:antlr4-runtime:4.13.1'
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'build/generated-src/antlr/main']
+        }
+    }
+}
+
+tasks.generateGrammarSource {
+    outputDirectory = file("build/generated-src/antlr/main/com/compiler/flask/grammar")
+    arguments += ['-visitor', '-no-listener', '-package', 'com.compiler.flask.grammar']
 }
