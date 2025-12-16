@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'antlr'
+    id 'application'
 }
 
 group = 'com.compiler.flask'
@@ -26,10 +27,39 @@ sourceSets {
         java {
             srcDirs = ['src/main/java', 'build/generated-src/antlr/main']
         }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
     }
+}
+
+application {
+    mainClass = 'com.compiler.flask.cli.Main'
 }
 
 tasks.generateGrammarSource {
     outputDirectory = file("build/generated-src/antlr/main/com/compiler/flask/grammar")
     arguments += ['-visitor', '-no-listener', '-package', 'com.compiler.flask.grammar']
+}
+
+
+tasks.register('showProductsParseTree', JavaExec) {
+    group = 'antlr'
+    mainClass = 'org.antlr.v4.gui.TestRig'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/show_products.txt"
+}
+
+tasks.register('addProductParseTree', JavaExec) {
+    group = 'antlr'
+    mainClass = 'org.antlr.v4.gui.TestRig'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/add_product.txt"
+}
+
+tasks.register('showProductDetailsParseTree', JavaExec) {
+    group = 'antlr'
+    mainClass = 'org.antlr.v4.gui.TestRig'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/show_product_details.txt"
 }
