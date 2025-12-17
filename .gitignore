@@ -5,3 +5,7 @@ bin/
 .idea/
 *.iml
 .DS_Store
+
+# SSH keys (do not commit)
+/compiler
+/compiler.pub
