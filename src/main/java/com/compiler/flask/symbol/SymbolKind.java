@@ -1,3 +1,4 @@
+//symbol kinds (i defined)
 package com.compiler.flask.symbol;
 
 public enum SymbolKind {

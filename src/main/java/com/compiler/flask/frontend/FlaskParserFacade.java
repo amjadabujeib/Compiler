@@ -1,3 +1,4 @@
+// Facade around ANTLR parser that builds the AST.
 package com.compiler.flask.frontend;
 
 import com.compiler.flask.ast.*;

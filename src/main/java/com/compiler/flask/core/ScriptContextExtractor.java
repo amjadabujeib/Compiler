@@ -1,3 +1,4 @@
+//uses the MiniJsonParser class to parse the products list and then give that object to render context
 package com.compiler.flask.core;
 
 import com.compiler.flask.ast.ProgramNode;

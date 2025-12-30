@@ -1,3 +1,4 @@
+// AST node for a css: block that aggregates CSS rules.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

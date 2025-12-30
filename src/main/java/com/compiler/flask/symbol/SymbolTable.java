@@ -1,3 +1,4 @@
+// Tracks symbols across nested scopes and has a print method for it
 package com.compiler.flask.symbol;
 
 import java.util.ArrayDeque;
@@ -37,7 +38,7 @@ public final class SymbolTable {
         root.declare(symbol);
     }
 
-    public String dump() {
+    public String print() {
         List<Scope> ordered = new ArrayList<>(history);
         StringBuilder builder = new StringBuilder();
         for (Scope scope : ordered) {

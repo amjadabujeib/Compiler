@@ -1,3 +1,4 @@
+// Root AST node for the program.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

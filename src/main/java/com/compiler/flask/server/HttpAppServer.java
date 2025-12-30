@@ -1,3 +1,5 @@
+// Embedded HTTP server that renders the .txt test files (live) and serves assets.
+//which will alow us to handle adding/removing in real time.
 package com.compiler.flask.server;
 
 import com.compiler.flask.ast.ProgramNode;

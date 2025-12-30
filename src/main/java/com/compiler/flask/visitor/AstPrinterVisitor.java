@@ -1,3 +1,5 @@
+// Visitor that formats the AST as an indented tree with source locations.
+// a printer for AST
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.AstNode;
@@ -92,8 +94,4 @@ public final class AstPrinterVisitor extends BaseAstVisitor<Void> {
         return writeNode(node);
     }
 
-    @Override
-    public Void visitGeneric(AstNode node) {
-        return writeNode(node);
-    }
 }

@@ -1,3 +1,4 @@
+// AST node for a template declaration with its name.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

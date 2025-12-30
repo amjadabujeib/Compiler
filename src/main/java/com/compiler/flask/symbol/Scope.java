@@ -1,3 +1,4 @@
+// Internal scope container for symbols with name and depth.
 package com.compiler.flask.symbol;
 
 import java.util.Collection;

@@ -1,0 +1,5 @@
+Summary of important Commands for testing.
+- ./gradlew build
+- ./gradlew run --args="src/main/resources/tests/show_products.txt out"
+- ./gradlew run --args="--serve 8080"
+- ./gradlew showProductsParseTree

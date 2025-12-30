@@ -1,3 +1,4 @@
+// Renders the AST to HTML using a render context and simple Jinja handling.
 package com.compiler.flask.emitter;
 
 import com.compiler.flask.ast.*;

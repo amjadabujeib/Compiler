@@ -1,3 +1,5 @@
+// the Parent abstract AST node class
+//attributes for additional info for each node type
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

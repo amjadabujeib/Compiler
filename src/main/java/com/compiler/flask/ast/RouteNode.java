@@ -1,3 +1,4 @@
+// AST node for a route declaration and its path (like route "/products").
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

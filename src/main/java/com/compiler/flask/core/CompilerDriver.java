@@ -1,3 +1,4 @@
+// handles the AST and symbol table printing and compile a file to html using the htmlEmitterVisitor
 package com.compiler.flask.core;
 
 import com.compiler.flask.ast.ProgramNode;
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 
 public final class CompilerDriver {
     public void compile(Path inputScript, Path outputDir) throws IOException {
@@ -26,7 +26,7 @@ public final class CompilerDriver {
         SymbolCollectorVisitor collector = new SymbolCollectorVisitor();
         SymbolTable table = collector.collect(program);
         System.out.println("=== Symbols ===");
-        System.out.println(table.dump());
+        System.out.println(table.print());
 
         ScriptContextExtractor contextExtractor = new ScriptContextExtractor();
         RenderContext renderContext = contextExtractor.extract(program);

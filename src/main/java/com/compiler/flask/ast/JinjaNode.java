@@ -1,3 +1,4 @@
+// AST node for Jinja-style expressions and statements.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

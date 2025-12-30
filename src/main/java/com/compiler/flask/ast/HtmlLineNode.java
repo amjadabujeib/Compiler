@@ -1,3 +1,4 @@
+// AST node for a raw HTML line inside a template.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

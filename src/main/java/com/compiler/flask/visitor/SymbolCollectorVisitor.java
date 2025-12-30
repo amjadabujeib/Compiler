@@ -1,3 +1,4 @@
+// Visitor that builds a SymbolTable from routes, templates, variables, and CSS/Jinja usage.
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.AstNode;

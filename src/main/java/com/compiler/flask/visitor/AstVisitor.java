@@ -1,6 +1,6 @@
+// Visitor interface for traversing AST node types.
 package com.compiler.flask.visitor;
 
-import com.compiler.flask.ast.AstNode;
 import com.compiler.flask.ast.CssBlockNode;
 import com.compiler.flask.ast.CssRuleNode;
 import com.compiler.flask.ast.HtmlLineNode;
@@ -26,6 +26,4 @@ public interface AstVisitor<R> {
     R visitCssBlock(CssBlockNode node);
 
     R visitCssRule(CssRuleNode node);
-
-    R visitGeneric(AstNode node);
 }

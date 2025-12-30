@@ -39,9 +39,6 @@ grammar FlaskLang;
                 }
                 emit(next);
             }
-            if (!tokens.isEmpty()) {
-                return tokens.poll();
-            }
         }
     }
 

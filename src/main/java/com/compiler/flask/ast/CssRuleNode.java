@@ -1,3 +1,4 @@
+// AST node for a single CSS rule line.
 package com.compiler.flask.ast;
 
 import com.compiler.flask.visitor.AstVisitor;

@@ -1,3 +1,4 @@
+// CLI entry point to compile scripts to HTML or run the demo server.
 package com.compiler.flask.cli;
 
 import com.compiler.flask.core.CompilerDriver;

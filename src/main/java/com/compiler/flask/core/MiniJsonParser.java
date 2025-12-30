@@ -1,3 +1,4 @@
+// Minimal JSON parser for list/object literals used in scripts.
 package com.compiler.flask.core;
 
 import java.util.ArrayList;

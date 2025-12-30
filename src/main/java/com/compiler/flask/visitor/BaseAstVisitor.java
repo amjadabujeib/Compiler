@@ -1,3 +1,4 @@
+// Default AST visitor that walks child nodes for each node type.
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.AstNode;
@@ -58,8 +59,4 @@ public abstract class BaseAstVisitor<R> implements AstVisitor<R> {
         return visitChildren(node);
     }
 
-    @Override
-    public R visitGeneric(AstNode node) {
-        return visitChildren(node);
-    }
 }

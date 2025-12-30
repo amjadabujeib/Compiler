@@ -1,3 +1,5 @@
+// the Symbols that (i defined with a specific type) that can be collected (using the collector) to
+//form a symbol table which can be printed using the print method.
 package com.compiler.flask.symbol;
 
 import com.compiler.flask.ast.SourceLocation;
