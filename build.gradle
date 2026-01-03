@@ -42,24 +42,3 @@ tasks.generateGrammarSource {
     arguments += ['-visitor', '-no-listener', '-package', 'com.compiler.flask.grammar']
 }
 
-
-tasks.register('showProductsParseTree', JavaExec) {
-    group = 'antlr'
-    mainClass = 'org.antlr.v4.gui.TestRig'
-    classpath = sourceSets.main.runtimeClasspath
-    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/show_products.txt"
-}
-
-tasks.register('addProductParseTree', JavaExec) {
-    group = 'antlr'
-    mainClass = 'org.antlr.v4.gui.TestRig'
-    classpath = sourceSets.main.runtimeClasspath
-    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/add_product.txt"
-}
-
-tasks.register('showProductDetailsParseTree', JavaExec) {
-    group = 'antlr'
-    mainClass = 'org.antlr.v4.gui.TestRig'
-    classpath = sourceSets.main.runtimeClasspath
-    args 'com.compiler.flask.grammar.FlaskLang', 'program', '-gui', "${projectDir}/src/main/resources/tests/show_product_details.txt"
-}

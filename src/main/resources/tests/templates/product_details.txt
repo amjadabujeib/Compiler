@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            max-width: 500px;
+        }
+
+        img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+        }
+
+        .delete {
+            background: red;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="{{ url_for('show_products') }}">← Back</a></p>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <p style="color: {% if category == 'error' %}red{% else %}green{% endif %}">{{ message }}</p>
+    {% endfor %}
+
+    <img src="{{ product.image }}" alt="{{ product.name }}">
+    <h1>{{ product.name }}</h1>
+    <p><strong>${{ "%.2f"|format(product.price) }}</strong></p>
+    <p>{{ product.details }}</p>
+
+    <form method="POST" action="{{ url_for('delete_product', product_id=product.id) }}">
+        <button class="delete" onclick="return confirm('Delete?')">Remove Product</button>
+    </form>
+</body>
+
+</html>

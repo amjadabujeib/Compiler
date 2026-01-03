@@ -1,5 +1,3 @@
-// the Symbols that (i defined with a specific type) that can be collected (using the collector) to
-//form a symbol table which can be printed using the print method.
 package com.compiler.flask.symbol;
 
 import com.compiler.flask.ast.SourceLocation;
@@ -28,7 +26,9 @@ public final class Symbol {
     }
 
     public void putMetadata(String key, String value) {
-        metadata.put(key, value);
+        if (key != null && value != null && !value.isBlank()) {
+            metadata.put(key, value);
+        }
     }
 
     @Override

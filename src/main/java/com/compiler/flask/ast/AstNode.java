@@ -1,8 +1,4 @@
-// the Parent abstract AST node class
-//attributes for additional info for each node type
 package com.compiler.flask.ast;
-
-import com.compiler.flask.visitor.AstVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,10 +40,8 @@ public abstract class AstNode {
     }
 
     public void putAttribute(String key, String value) {
-        if (key != null && value != null) {
+        if (key != null && value != null && !value.isBlank()) {
             attributes.put(key, value);
         }
     }
-
-    public abstract <R> R accept(AstVisitor<R> visitor);
 }

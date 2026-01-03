@@ -1,4 +1,3 @@
-// Source file/line/column location value object for AST nodes.
 package com.compiler.flask.ast;
 
 import java.util.Objects;
@@ -13,6 +12,11 @@ public final class SourceLocation {
         this.line = line;
         this.column = column;
     }
+
+    public String file() {
+        return file;
+    }
+
     public int line() {
         return line;
     }

@@ -1,4 +1,3 @@
-// Tracks symbols across nested scopes and has a print method for it
 package com.compiler.flask.symbol;
 
 import java.util.ArrayDeque;

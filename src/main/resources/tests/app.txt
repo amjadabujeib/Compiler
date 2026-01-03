@@ -1,0 +1,117 @@
+from flask import Flask, render_template, request, redirect, url_for, flash
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key-here'
+
+# In-memory product storage (using a list of dictionaries)
+products = [
+    {
+        'id': 1,
+        'name': 'Wireless Headphones',
+        'price': 149.99,
+        'details': 'Premium wireless headphones with noise cancellation and 30-hour battery life.',
+        'image': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'
+    },
+    {
+        'id': 2,
+        'name': 'Smart Watch',
+        'price': 299.99,
+        'details': 'Feature-rich smartwatch with health monitoring, GPS, and water resistance.',
+        'image': 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400'
+    },
+    {
+        'id': 3,
+        'name': 'Laptop Stand',
+        'price': 79.99,
+        'details': 'Ergonomic aluminum laptop stand with adjustable height and cooling design.',
+        'image': 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400'
+    }
+]
+
+# Counter for generating unique IDs
+next_id = 4
+
+
+@app.route('/')
+def index():
+    """Redirect to show products page"""
+    return redirect(url_for('show_products'))
+
+
+@app.route('/products')
+def show_products():
+    """Display all products"""
+    return render_template('show_products.txt', products=products)
+
+
+@app.route('/products/add', methods=['GET', 'POST'])
+def add_product():
+    """Add a new product"""
+    global next_id
+    
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip()
+        price = request.form.get('price', '')
+        details = request.form.get('details', '').strip()
+        image = request.form.get('image', '').strip()
+        
+        # Basic validation
+        if not name or not price:
+            flash('Name and price are required!', 'error')
+            return render_template('add_product.txt')
+        
+        try:
+            price = float(price)
+        except ValueError:
+            flash('Price must be a valid number!', 'error')
+            return render_template('add_product.txt')
+        
+        # Create new product
+        new_product = {
+            'id': next_id,
+            'name': name,
+            'price': price,
+            'details': details if details else 'No details available.',
+            'image': image if image else 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400'
+        }
+        
+        products.append(new_product)
+        next_id += 1
+        
+        flash(f'Product "{name}" added successfully!', 'success')
+        return redirect(url_for('show_products'))
+    
+    return render_template('add_product.txt')
+
+
+@app.route('/products/<int:product_id>')
+def product_details(product_id):
+    """Show product details"""
+    product = next((p for p in products if p['id'] == product_id), None)
+    
+    if product is None:
+        flash('Product not found!', 'error')
+        return redirect(url_for('show_products'))
+    
+    return render_template('product_details.txt', product=product)
+
+
+@app.route('/products/<int:product_id>/delete', methods=['POST'])
+def delete_product(product_id):
+    """Remove a product"""
+    global products
+    
+    product = next((p for p in products if p['id'] == product_id), None)
+    
+    if product is None:
+        flash('Product not found!', 'error')
+    else:
+        product_name = product['name']
+        products = [p for p in products if p['id'] != product_id]
+        flash(f'Product "{product_name}" has been removed!', 'success')
+    
+    return redirect(url_for('show_products'))
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)

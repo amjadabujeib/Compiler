@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            max-width: 400px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Add Product</h1>
+    <p><a href="{{ url_for('show_products') }}">← Back</a></p>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <p style="color: {% if category == 'error' %}red{% else %}green{% endif %}">{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST">
+        <label>Name *</label>
+        <input type="text" name="name" required>
+
+        <label>Price *</label>
+        <input type="number" name="price" step="0.01" required>
+
+        <label>Details</label>
+        <textarea name="details"></textarea>
+
+        <label>Image URL</label>
+        <input type="url" name="image">
+
+        <button type="submit">Add</button>
+    </form>
+</body>
+
+</html>

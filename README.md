@@ -1,6 +1,6 @@
 # FlaskCompiler
 
-A tiny Java + ANTLR4 compiler for an indentation-sensitive DSL (similar to python) that renders HTML pages with a minimal Jinja-like templating layer.
+ANTLR4 grammars that parse a small Flask-focused subset of Python (enough for `app.py`) and Jinja2 templates with embedded HTML/CSS.
 
 ## Requirements
 
@@ -12,88 +12,40 @@ A tiny Java + ANTLR4 compiler for an indentation-sensitive DSL (similar to pytho
 ./gradlew build
 ```
 
-## Run (compile a script to HTML)
-
-`Main` supports:
+## Parse (app + templates)
 
 ```bash
-./gradlew run --args="<script> <outDir>"
+./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates"
 ```
 
-Example:
+This validates parsing only and prints the Python AST, Jinja ASTs, and symbol tables (no HTML generation).
+
+Test fixtures live in `src/main/resources/tests`.
+
+Parse a single template (still uses the same app file):
 
 ```bash
-./gradlew run --args="src/main/resources/tests/show_products.txt out"
-# writes: out/show_products.html and copies assets to out/assets/
+./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/add_product.txt"
+./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/show_products.txt"
+./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/product_details.txt"
 ```
 
-## Run (serve the sample app)
-
-Start the built-in HTTP server:
+Parse only the Python file:
 
 ```bash
-./gradlew run --args="--serve 8080"
+./gradlew run --args="--python-only src/main/resources/tests/app.txt"
 ```
 
-Then open:
+## Grammar coverage (subset)
 
-- `http://localhost:8080/products`
-- `http://localhost:8080/products/add`
-- `http://localhost:8080/products/detail?name=iPhone%2015`
+Python:
+- `from ... import ...`, decorators, function defs
+- `if/elif/else`, `try/except`
+- assignments/augassign, `return`, `global`, expression statements
+- literals (strings including f-strings, numbers, lists, dicts)
+- calls, attribute access, subscripts, list comps, generator expressions
 
-## Language overview (FlaskLang)
-
-FlaskLang is whitespace/indentation sensitive (similar to Python).
-
-### Top-level
-
-- A script contains a single `route`:
-
-```text
-route "/path":
-    ...
-```
-
-### Variables
-
-- Inside a route you can assign JSON-like lists/objects to names; these become template variables:
-
-```text
-products = [
-    { "name": "iPhone 15", "price": 799.00 }
-]
-```
-
-### Templates
-
-- Define a template block and write raw HTML lines inside it:
-
-```text
-template page:
-    <h1>Hello</h1>
-```
-
-### Templating (supported subset)
-
-- Expression substitution: `{{ variable }}` with dot access into objects/maps (e.g. `{{ product.name }}`).
-- Simple loops: `{% for item in items %}` ... `{% endfor %}` (nested `for` loops are not supported).
-
-### CSS blocks
-
-- Inside a template, a `css:` block collects CSS rules and emits them into a `<style>` tag:
-
-```text
-css:
-    .card { border-radius: 12px; }
-```
-
-## Handy dev tasks
-
-The Gradle build includes a few parse-tree viewer tasks for the sample scripts:
-
-```bash
-./gradlew showProductsParseTree
-./gradlew addProductParseTree
-./gradlew showProductDetailsParseTree
-```
-
+Templates:
+- HTML/CSS text outside Jinja tags
+- Jinja statements: `for`, `if`, `elif`, `else`, `endif`, `endfor`
+- Jinja expressions: filters, calls, attributes, subscripts/slices

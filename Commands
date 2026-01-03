@@ -1,5 +1,7 @@
 Summary of important Commands for testing.
 - ./gradlew build
-- ./gradlew run --args="src/main/resources/tests/show_products.txt out"
-- ./gradlew run --args="--serve 8080"
-- ./gradlew showProductsParseTree
+- ./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates"
+- ./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/add_product.txt"
+- ./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/show_products.txt"
+- ./gradlew run --args="src/main/resources/tests/app.txt src/main/resources/tests/templates/product_details.txt"
+- ./gradlew run --args="--python-only src/main/resources/tests/app.txt"
