@@ -1,3 +1,4 @@
+// Visitor that formats Jinja/HTML/CSS AST nodes as text.
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.AstNode;

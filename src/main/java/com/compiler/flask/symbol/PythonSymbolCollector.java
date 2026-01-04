@@ -1,3 +1,4 @@
+// Collects Python symbols by walking the Python AST.
 package com.compiler.flask.symbol;
 
 import com.compiler.flask.ast.python.PythonAssignNode;

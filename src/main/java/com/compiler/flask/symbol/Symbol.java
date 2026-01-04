@@ -1,3 +1,4 @@
+// Symbol record with name, kind, location, and metadata.
 package com.compiler.flask.symbol;
 
 import com.compiler.flask.ast.SourceLocation;

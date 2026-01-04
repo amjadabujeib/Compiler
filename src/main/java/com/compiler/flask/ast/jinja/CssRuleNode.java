@@ -1,3 +1,4 @@
+// AST node for a CSS rule inside a style block.
 package com.compiler.flask.ast.jinja;
 
 import com.compiler.flask.ast.SourceLocation;

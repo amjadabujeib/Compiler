@@ -1,3 +1,4 @@
+// Collects template and CSS symbols by walking the Jinja AST.
 package com.compiler.flask.symbol;
 
 import com.compiler.flask.ast.SourceLocation;

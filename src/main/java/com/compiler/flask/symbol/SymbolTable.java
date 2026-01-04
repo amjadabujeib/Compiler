@@ -1,3 +1,4 @@
+// Symbol table with scoped declarations and printing.
 package com.compiler.flask.symbol;
 
 import java.util.ArrayDeque;

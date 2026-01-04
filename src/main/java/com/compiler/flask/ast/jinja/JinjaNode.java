@@ -1,3 +1,4 @@
+// Base node for the Jinja/HTML/CSS AST hierarchy.
 package com.compiler.flask.ast.jinja;
 
 import com.compiler.flask.ast.AstNode;

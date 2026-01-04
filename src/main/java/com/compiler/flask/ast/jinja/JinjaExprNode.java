@@ -1,3 +1,4 @@
+// AST node for Jinja expression tags.
 package com.compiler.flask.ast.jinja;
 
 import com.compiler.flask.ast.SourceLocation;

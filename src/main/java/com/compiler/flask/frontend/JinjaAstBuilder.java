@@ -1,3 +1,4 @@
+// Builds a Jinja/HTML/CSS AST from the ANTLR parse tree.
 package com.compiler.flask.frontend;
 
 import com.compiler.flask.ast.SourceLocation;
@@ -24,13 +25,9 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class JinjaAstBuilder extends JinjaHtmlParserBaseVisitor<JinjaNode> {
     private static final int PREVIEW_LIMIT = 80;
-    private static final Pattern STYLE_BLOCK = Pattern.compile("(?is)<style[^>]*>(.*?)</style>");
-
     private final String fileName;
     private final String source;
     private final CommonTokenStream tokens;
@@ -64,10 +61,22 @@ public final class JinjaAstBuilder extends JinjaHtmlParserBaseVisitor<JinjaNode>
     @Override
     public JinjaNode visitHtmlChunk(JinjaHtmlParser.HtmlChunkContext ctx) {
         String raw = captureRaw(ctx);
+        return new HtmlTextNode(location(ctx), raw, preview(raw));
+    }
+
+    @Override
+    public JinjaNode visitStyleBlock(JinjaHtmlParser.StyleBlockContext ctx) {
+        String raw = captureRaw(ctx);
         HtmlTextNode node = new HtmlTextNode(location(ctx), raw, preview(raw));
-        for (CssBlockNode block : extractCssBlocks(raw, location(ctx))) {
-            node.addChild(block);
+        String css = captureCssBody(ctx).trim();
+        CssBlockNode block = new CssBlockNode(location(ctx), css, preview(css));
+        for (JinjaHtmlParser.CssRuleContext rule : ctx.cssRule()) {
+            String ruleText = compactWhitespace(captureRaw(rule));
+            if (!ruleText.isEmpty()) {
+                block.addChild(new CssRuleNode(location(rule), ruleText));
+            }
         }
+        node.addChild(block);
         return node;
     }
 
@@ -159,6 +168,13 @@ public final class JinjaAstBuilder extends JinjaHtmlParserBaseVisitor<JinjaNode>
         return singleLine;
     }
 
+    private String compactWhitespace(String text) {
+        if (text == null) {
+            return "";
+        }
+        return text.replaceAll("\\s+", " ").trim();
+    }
+
     private SourceLocation location(ParserRuleContext ctx) {
         Token token = ctx.getStart();
         return new SourceLocation(fileName, token.getLine(), token.getCharPositionInLine() + 1);
@@ -186,6 +202,22 @@ public final class JinjaAstBuilder extends JinjaHtmlParserBaseVisitor<JinjaNode>
         }
         Token start = ctx.getStart();
         Token stop = ctx.getStop();
+        return captureRange(start, stop);
+    }
+
+    private String captureCssBody(JinjaHtmlParser.StyleBlockContext ctx) {
+        if (ctx.cssRule().isEmpty()) {
+            return "";
+        }
+        Token start = ctx.cssRule(0).getStart();
+        Token stop = ctx.cssRule(ctx.cssRule().size() - 1).getStop();
+        return captureRange(start, stop);
+    }
+
+    private String captureRange(Token start, Token stop) {
+        if (start == null || stop == null) {
+            return "";
+        }
         int startIdx = Math.max(0, start.getStartIndex());
         int stopIdx = Math.max(startIdx, stop.getStopIndex());
         if (startIdx >= source.length()) {
@@ -193,25 +225,5 @@ public final class JinjaAstBuilder extends JinjaHtmlParserBaseVisitor<JinjaNode>
         }
         stopIdx = Math.min(stopIdx, source.length() - 1);
         return source.substring(startIdx, stopIdx + 1);
-    }
-
-    private List<CssBlockNode> extractCssBlocks(String raw, SourceLocation location) {
-        List<CssBlockNode> blocks = new ArrayList<>();
-        if (raw == null || raw.isEmpty()) {
-            return blocks;
-        }
-        Matcher matcher = STYLE_BLOCK.matcher(raw);
-        while (matcher.find()) {
-            String css = matcher.group(1);
-            CssBlockNode block = new CssBlockNode(location, css, preview(css));
-            for (String line : css.split("\\R")) {
-                String trimmed = line.trim();
-                if (!trimmed.isEmpty()) {
-                    block.addChild(new CssRuleNode(location, trimmed));
-                }
-            }
-            blocks.add(block);
-        }
-        return blocks;
     }
 }

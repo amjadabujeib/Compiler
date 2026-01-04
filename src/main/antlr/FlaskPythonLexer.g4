@@ -1,3 +1,4 @@
+// Lexer grammar for the Flask-oriented Python subset.
 lexer grammar FlaskPythonLexer;
 
 @members {

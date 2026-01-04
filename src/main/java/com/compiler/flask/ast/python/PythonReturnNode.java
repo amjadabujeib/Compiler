@@ -1,3 +1,4 @@
+// AST node for Python return statements.
 package com.compiler.flask.ast.python;
 
 import com.compiler.flask.ast.SourceLocation;

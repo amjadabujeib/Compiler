@@ -1,3 +1,4 @@
+// Base node for the Python AST hierarchy.
 package com.compiler.flask.ast.python;
 
 import com.compiler.flask.ast.AstNode;

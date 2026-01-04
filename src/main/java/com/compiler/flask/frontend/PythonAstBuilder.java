@@ -1,3 +1,4 @@
+// Builds a Python AST from the ANTLR parse tree.
 package com.compiler.flask.frontend;
 
 import com.compiler.flask.ast.SourceLocation;

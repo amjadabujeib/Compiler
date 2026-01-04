@@ -1,3 +1,4 @@
+// Visitor interface for Jinja/HTML/CSS AST nodes.
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.jinja.CssBlockNode;

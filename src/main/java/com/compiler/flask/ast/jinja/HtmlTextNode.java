@@ -1,3 +1,4 @@
+// AST node for raw HTML text chunks.
 package com.compiler.flask.ast.jinja;
 
 import com.compiler.flask.ast.SourceLocation;

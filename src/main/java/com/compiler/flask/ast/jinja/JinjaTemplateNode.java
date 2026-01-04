@@ -1,3 +1,4 @@
+// Root AST node for a Jinja template file.
 package com.compiler.flask.ast.jinja;
 
 import com.compiler.flask.ast.SourceLocation;

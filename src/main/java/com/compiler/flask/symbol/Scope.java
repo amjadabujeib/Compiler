@@ -1,3 +1,4 @@
+// Represents a single symbol scope for the symbol table.
 package com.compiler.flask.symbol;
 
 import java.util.Collection;

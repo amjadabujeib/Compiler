@@ -1,3 +1,4 @@
+// AST node for Python else blocks.
 package com.compiler.flask.ast.python;
 
 import com.compiler.flask.ast.SourceLocation;

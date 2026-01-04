@@ -1,3 +1,4 @@
+// Source file position (file/line/column) value object.
 package com.compiler.flask.ast;
 
 import java.util.Objects;
@@ -11,10 +12,6 @@ public final class SourceLocation {
         this.file = file;
         this.line = line;
         this.column = column;
-    }
-
-    public String file() {
-        return file;
     }
 
     public int line() {

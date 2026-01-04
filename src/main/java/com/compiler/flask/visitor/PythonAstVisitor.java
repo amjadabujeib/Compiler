@@ -1,3 +1,4 @@
+// Visitor interface for Python AST nodes.
 package com.compiler.flask.visitor;
 
 import com.compiler.flask.ast.python.PythonAssignNode;

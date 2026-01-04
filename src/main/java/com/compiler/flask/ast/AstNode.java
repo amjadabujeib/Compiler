@@ -1,3 +1,4 @@
+// Base AST node with location, children, and attributes.
 package com.compiler.flask.ast;
 
 import java.util.ArrayList;
